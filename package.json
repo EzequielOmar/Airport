@@ -1,0 +1,43 @@
+{
+  "name": "airport",
+  "version": "1.0.0",
+  "description": "Airport api to find the cheapest and most direct flights",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run db:up && nodemon index.js",
+    "db:up": "npm run db:migrate && npm run db:seed",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:down": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:migrate:undo:all",
+    "db:restart": "npm run db:down && npm run db:up",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EzequielOmar/Airport.git"
+  },
+  "keywords": [
+    "node",
+    "docker",
+    "nodedock",
+    "express",
+    "postgresql"
+  ],
+  "author": "EzequielOmar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EzequielOmar/Airport/issues"
+  },
+  "homepage": "https://github.com/EzequielOmar/Airport#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "pg": "^8.8.0",
+    "sequelize": "^6.25.3"
+  }
+}
