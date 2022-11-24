@@ -3,7 +3,8 @@ const { Sequelize } = require("sequelize");
 const bodyParser = require("body-parser");
 
 //* Import app routes
-const flightRoutes = require(__dirname + "/src/routes/flights-routes.js");
+const flightRoutes = require(__dirname + "/src/routes/flight-routes.js");
+const terminalRoutes = require(__dirname + "/src/routes/terminal-routes.js");
 
 const PORT = process.env.PORT || 9000;
 const app = express();
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //* ROUTES
 app.use("/api/flights", flightRoutes);
+app.use("/api/terminals", terminalRoutes);
 
 //* Error handler
 app.use((err, req, res, next) => {

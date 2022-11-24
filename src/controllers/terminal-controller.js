@@ -1,4 +1,21 @@
 const Terminal = require("../../models/index.js").Terminals;
+const Flight = require("../../models/index.js").Flights;
+
+const get_terminals = async (req, res, next) => {
+  return Terminal.findAll({
+    include: [
+      { model: Flight, as: "arrivals" },
+      { model: Flight, as: "departures" },
+    ],
+  })
+    .then((data) =>
+      res.status(200).send({
+        data: data,
+        code: 200,
+      })
+    )
+    .catch((err) => next(err));
+};
 
 /**
  * Check by id if terminal exists in database
@@ -16,5 +33,6 @@ const terminal_exists = (id) =>
     });
 
 module.exports = {
+  get_terminals,
   terminal_exists,
 };

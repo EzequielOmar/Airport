@@ -19,6 +19,17 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "flightId",
         as: "passengers",
       });
+      models.Flights.belongsTo(models.Employees, {
+        foreignKey: "pilot",
+      });
+      models.Flights.belongsTo(models.Terminals, {
+        foreignKey: "from",
+        as: "departures",
+      });
+      models.Flights.belongsTo(models.Terminals, {
+        foreignKey: "to",
+        as: "arrivals",
+      });
     }
   }
   Flights.init(
@@ -27,8 +38,24 @@ module.exports = (sequelize, DataTypes) => {
       arrival: { type: DataTypes.DATE, isAfter: DataTypes.NOW },
       capacity: { type: DataTypes.INTEGER, isInt: true, min: 1 },
       cost: { type: DataTypes.DECIMAL, isDecimal: true, min: 1 },
-      from: { type: DataTypes.INTEGER, isInt: true, min: 1 },
-      to: { type: DataTypes.INTEGER, isInt: true, min: 1 },
+      from: {
+        type: DataTypes.INTEGER,
+        isInt: true,
+        min: 1,
+        references: {
+          model: "Terminals",
+          key: "id",
+        },
+      },
+      to: {
+        type: DataTypes.INTEGER,
+        isInt: true,
+        min: 1,
+        references: {
+          model: "Terminals",
+          key: "id",
+        },
+      },
       pilot: { type: DataTypes.INTEGER, isInt: true, min: 1 },
     },
     {

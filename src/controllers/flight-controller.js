@@ -1,10 +1,17 @@
-const { validationResult } = require("express-validator");
 const Flight = require("../../models/index.js").Flights;
+const Terminal = require("../../models/index.js").Terminals;
+const Employee = require("../../models/index.js").Employees;
 const { terminal_exists } = require("./terminal-controller");
 const { employee_exists } = require("./employee-controller");
 
 const get_flights = async (req, res, next) => {
-  return Flight.findAll()
+  return Flight.findAll({
+    include: [
+      { model: Terminal, as: "arrivals", required: true },
+      { model: Terminal, as: "departures", required: true },
+      { model: Employee, required: true },
+    ],
+  })
     .then((data) =>
       res.status(200).send({
         data: data,
