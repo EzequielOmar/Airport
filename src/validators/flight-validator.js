@@ -60,4 +60,39 @@ const new_flight_validationSchema = {
   },
 };
 
-module.exports = new_flight_validationSchema;
+const search_route_validationSchema = {
+  fromTerminal: {
+    notEmpty: true,
+    isInt: { min: 1 },
+    errorMessage: "Field 'fromTerminal' is invalid",
+  },
+  toTerminal: {
+    notEmpty: true,
+    isInt: { min: 1 },
+    errorMessage: "Field 'toTerminal' is invalid",
+  },
+  fromDate: {
+    notEmpty: true,
+    optional: {
+      custom: {
+        options: (value) => {
+          if (new Date(value).toString() !== "Invalid Date") return true;
+        },
+      },
+    },
+    errorMessage: "Field 'fromDate' is invalid",
+  },
+  toDate: {
+    notEmpty: true,
+    optional: {
+      custom: {
+        options: (value) => {
+          if (new Date(value).toString() !== "Invalid Date") return true;
+        },
+      },
+    },
+    errorMessage: "Field 'toDate' is invalid",
+  },
+};
+
+module.exports = { new_flight_validationSchema, search_route_validationSchema };
